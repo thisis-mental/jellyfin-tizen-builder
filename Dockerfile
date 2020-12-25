@@ -5,7 +5,10 @@ ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl
+    apt-get install -y \
+    --no-install-recommends \
+    curl \
+    sudo
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -37,7 +40,6 @@ RUN apt-get update && \
         python2.7 \
         qemu-kvm \
         rpm2cpio \
-        sudo \
         yarn \
         zenity \
         zip && \
