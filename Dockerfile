@@ -1,5 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER MENTAL
+
 ENV LANG C.UTF-8
 ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
@@ -48,7 +49,11 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN ./dependencies.sh
+RUN ls
+RUN ls /
+RUN chmod +x /dependencies.sh
+RUN /dependencies.sh
+
 RUN useradd -m -G sudo,kvm,libvirtd tizen && \
     passwd -d tizen
 USER tizen
