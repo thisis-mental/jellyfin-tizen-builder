@@ -9,7 +9,9 @@ RUN apt-get update && \
     apt-get install -y \
         --no-install-recommends \
         acl \
-        bridge-utils \
+        apt-transport-https \
+        bridge-utils \ 
+        ca-certificates \
         cpio \
         curl \
         gettext \
