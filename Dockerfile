@@ -33,9 +33,7 @@ RUN apt-get update && \
         rpm2cpio \
         sudo \
         zenity \
-        zip && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+        zip
 
 RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
 RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
@@ -44,7 +42,9 @@ RUN apt-get update && \
     apt-get full-upgrade -y && \
     apt-get install -y \
         --no-install-recommends \
-        yarn
+        yarn && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN useradd -m -G sudo,kvm,libvirtd tizen && \
     passwd -d tizen
