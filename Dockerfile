@@ -49,24 +49,28 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-COPY dependencies.sh /opt/
-CMD ["/opt/dependencies.sh"]
+RUN mkdir /opt/jellyfin-tizen-builder
+COPY dependencies.sh /opt/jellyfin-tizen-builder
+CMD ["/opt/jellyfin-tizen-builder/dependencies.sh"]
+RUN ls /opt/jellyfin-tizen-builder
 
 RUN useradd -m -G sudo,kvm,libvirtd tizen && \
     passwd -d tizen
 USER tizen
-WORKDIR /home/tizen
-ENV BASH_ENV /home/tizen/.profile
+
+WORKDIR /opt/jellyfin-tizen-builder
+ENV BASH_ENV /opt/jellyfin-tizen-builder/.profile
 SHELL ["/bin/bash", "-c"]
-COPY --chown=tizen dependencies/jdk-8u172-linux-x64.tar.gz .
+
 RUN tar zxf jdk-8u172-linux-x64.tar.gz -C ~/ && \
     echo 'export JAVA_HOME=$HOME/jdk1.8.0_172' >> ~/.profile && \
     echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.profile && \
     rm jdk-8u172-linux-x64.tar.gz
-COPY --chown=tizen dependencies/web-cli_Tizen_Studio_2.4_ubuntu-64.bin .
+
 RUN ./web-cli_Tizen_Studio_2.4_ubuntu-64.bin \
     --accept-license \
     ~/tizen-studio && \
     echo 'export PATH=$PATH:$HOME/tizen-studio/tools' >> ~/.profile && \
     rm web-cli_Tizen_Studio_2.4_ubuntu-64.bin
+    
 CMD ["/bin/bash", "--login"]
