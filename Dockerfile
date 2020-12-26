@@ -48,7 +48,7 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN dependencies.sh
+RUN ./dependencies.sh
 RUN useradd -m -G sudo,kvm,libvirtd tizen && \
     passwd -d tizen
 USER tizen
