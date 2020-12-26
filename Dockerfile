@@ -54,12 +54,12 @@ USER tizen
 WORKDIR /home/tizen
 ENV BASH_ENV /home/tizen/.profile
 SHELL ["/bin/bash", "-c"]
-COPY --chown=tizen _deps/jdk-8u172-linux-x64.tar.gz .
+COPY --chown=tizen dependencies/jdk-8u172-linux-x64.tar.gz .
 RUN tar zxf jdk-8u172-linux-x64.tar.gz -C ~/ && \
     echo 'export JAVA_HOME=$HOME/jdk1.8.0_172' >> ~/.profile && \
     echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.profile && \
     rm jdk-8u172-linux-x64.tar.gz
-COPY --chown=tizen _deps/web-cli_Tizen_Studio_2.4_ubuntu-64.bin .
+COPY --chown=tizen dependencies/web-cli_Tizen_Studio_2.4_ubuntu-64.bin .
 RUN ./web-cli_Tizen_Studio_2.4_ubuntu-64.bin \
     --accept-license \
     ~/tizen-studio && \
