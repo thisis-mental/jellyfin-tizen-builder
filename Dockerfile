@@ -5,21 +5,13 @@ ENV LC_ALL C.UTF-8
 ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && \
-    apt-get install -y \
-    --no-install-recommends \
-    curl \
-    sudo
-
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
-RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
-
-RUN apt-get update && \
     apt-get full-upgrade -y && \
     apt-get install -y \
         --no-install-recommends \
         acl \
         bridge-utils \
         cpio \
+        curl \
         gettext \
         libcanberra-gtk-module \
         libcurl3-gnutls \
@@ -34,17 +26,26 @@ RUN apt-get update && \
         libxcb-image0 \
         libxtst6 \
         make \
-        nodejs \
         openvpn \
         pciutils \
         python2.7 \
         qemu-kvm \
         rpm2cpio \
-        yarn \
+        sudo \
         zenity \
         zip && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
+
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+RUN echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+
+RUN apt-get update && \
+    apt-get full-upgrade -y && \
+    apt-get install -y \
+        --no-install-recommends \
+        yarn
+
 RUN useradd -m -G sudo,kvm,libvirtd tizen && \
     passwd -d tizen
 USER tizen
