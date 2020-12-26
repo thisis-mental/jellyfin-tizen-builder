@@ -10,7 +10,7 @@ if [ ! -f _deps/$JAVA_JDK ]; then
     curl -k -L \
         -H "Cookie: oraclelicense=accept-securebackup-cookie" \
         $JAVA_URL \
-        -o _deps/$JAVA_JDK
+        -o dependencies/$JAVA_JDK
 fi
 
 TIZEN_CLI=web-cli_Tizen_Studio_2.4_ubuntu-64.bin
@@ -19,6 +19,6 @@ TIZEN_URL=http://download.tizen.org/sdk/Installer/tizen-studio_2.4/web-cli_Tizen
 if [ ! -f _deps/$TIZEN_CLI ]; then
     curl -k -L \
         $TIZEN_URL \
-        -o _deps/$TIZEN_CLI
-    chmod +x _deps/$TIZEN_CLI
+        -o dependencies/$TIZEN_CLI
+    chmod +x dependencies/$TIZEN_CLI
 fi
