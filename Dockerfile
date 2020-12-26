@@ -49,10 +49,8 @@ RUN apt-get update && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
-RUN ls
-RUN ls /
-RUN chmod +x /dependencies.sh
-RUN /dependencies.sh
+COPY dependencies.sh /opt/
+CMD ["/opt/dependencies.sh"]
 
 RUN useradd -m -G sudo,kvm,libvirtd tizen && \
     passwd -d tizen
